@@ -1,0 +1,73 @@
+/**
+ * @author Olivia Meier
+ * @date April 18, 2023
+ */
+import java.util.Scanner;
+
+public class SequenceAlignmentDivideConquer {
+	
+	
+	static char[] x = {'A', 'A', 'C', 'A', 'G', 'T', 'T', 'A', 'C', 'C'};
+	static char[] y = {'T', 'A', 'A', 'G', 'G', 'T', 'C', 'A'};
+	static int m = x.length;
+	static int n = y.length;
+	static int optCost = 0;
+	static int penalty = 0;
+	
+	
+	public static void main (String[] args) { 
+		
+		System.out.println("The cost of optimal alignment is: " + opt(0,0));
+		
+	}
+
+	public static int opt (int i, int j){
+		if (i == m) {
+			optCost = 2 *(n - j);
+		} else if (j == n) {
+			optCost = 2 *(m - i);
+		} else {
+			if (x[i] == y[j]) {
+					penalty = 0;
+			} else {
+				penalty = 1;
+			}
+			
+			optCost = min(opt(i + 1, j + 1) + penalty, opt(i + 1, j) + 2, opt(i, j + 1) + 2);
+		}
+		return optCost;
+	}
+
+	private static int min(int a, int b, int c) {
+		// TODO Auto-generated method stub
+		if (a <= b && a <= c) {
+		   return a;
+		} else if (b <= c && b <= a) {
+		   return b;
+		} else {
+		   return c;
+		}
+	}
+	
+	
+	
+	/*
+	 * Pseudo Code:
+	 * 
+	 * void opt (int i, int j){
+	 * 
+	 * 		if ( i == m)
+	 * 			opt = 2(n - j);
+	 * 		else if (j == n)
+	 * 			opt = 2(m - i);
+	 * 		else{
+	 * 			if (x[i] == y[i])
+	 * 				penalty = 0;
+	 * 			else
+	 * 				penalty = 1;
+	 * 			opt = min(opt(i + 1, j + 1) + penalty, opt(i + 1, j) + 2, opt(i, j + 1) + 2);
+	 * 
+	 * }
+	 */
+	
+}
