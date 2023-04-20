@@ -70,3 +70,4 @@ public class SequenceAlignDynamicProg {
 	        }
 	        
 	        System.out.println(opt[m-1][n-1]);
+}
