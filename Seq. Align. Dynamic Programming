@@ -2,6 +2,8 @@
 	 * @author Olivia Meier
 	 * @date April 18, 2023
 	 */
+	 // Wrong Ouput: Find Soutions
+	 // Add Basic Operations and Timing Code
 
 public class SequenceAlignDynamicProg {
 		
