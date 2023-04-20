@@ -1,0 +1,96 @@
+/**
+	 * @author Olivia Meier
+	 * @date April 18, 2023
+	 */
+
+public class SequenceAlignDynamicProg {
+		
+		static char[] x = {'A', 'A', 'C', 'A', 'G', 'T', 'T', 'A', 'C', 'C'};
+		static char[] y = {'T', 'A', 'A', 'G', 'G', 'T', 'C', 'A'};
+		static int m = x.length;
+		static int n = y.length;
+		static int optCost = 0;
+		static int penalty = 0;
+		
+		
+		public static void main (String[] args) { 
+			
+			//run algorithm
+			int optimalCost = opt(0,0);
+			
+			//print optimal cost
+			System.out.println("The cost of optimal alignment is: " + optimalCost);	
+			
+			//print optimal alignment 
+			alignment();
+		}
+
+		//find cost of optimal alignment 
+		public static int opt (int i, int j){
+			
+			if (i == m) {
+				optCost = 2 *(n - j);
+			} else if (j == n) {
+				optCost = 2 *(m - i);
+			} else {
+				if (x[i] == y[j]) {
+						penalty = 0;
+				} else {
+					penalty = 1;
+				}
+				
+				optCost = min(opt(i + 1, j + 1) + penalty, opt(i + 1, j) + 2, opt(i, j + 1) + 2);
+			}
+			return optCost;
+		}
+		
+		//method to calculate minimum of 3 integers
+		private static int min(int a, int b, int c) {
+			// TODO Auto-generated method stub
+			if (a <= b && a <= c) {
+			   return a;
+			} else if (b <= c && b <= a) {
+			   return b;
+			} else {
+			   return c;
+			}
+		}
+		
+		public static void alignment(){
+			int penalty;
+			
+			//create the (m+1) x (n+1) array
+	        int[][] opt = new int[m+1][n+1];
+	        
+	       //initialize the first row and column of the array
+	        for (int i = 0; i <= m; i++) {
+	           opt[i][0] = i * 2;
+	        }
+	        for (int j = 0; j <= n; j++) {
+	           opt[0][j] = j * 2;
+	        }
+	        
+	        //fill in the rest of the array using the dynamic programming algorithm
+	        for (int i = 1; i <= m; i++) {
+	            for (int j = 1; j <= n; j++) {
+	                if (x.length == y.length) {
+	                	penalty = 0;
+	                }
+	                else {
+	                	penalty = 1;
+	                }
+	                int case1 = opt[i-1][j-1] + penalty; 
+	                int case2 = opt[i-1][j] + 2; 
+	                int case3 = opt[i][j-1] + 2; 
+	                opt[i][j] = min(case1, case2, case3); 
+	            }
+	        }
+	        
+	        //print optimal alignment array 
+	        for(int i = 0; i <= x.length; i++) {
+	        	for(int j = 0; j <= y.length; j++) {
+	        		System.out.print(opt[i][j] + " ");
+	        	}
+	        	System.out.println();
+	        }
+      }
