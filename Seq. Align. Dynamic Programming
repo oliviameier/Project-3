@@ -15,33 +15,8 @@ public class SequenceAlignDynamicProg {
 		
 		public static void main (String[] args) { 
 			
-			//run algorithm
-			int optimalCost = opt(0,0);
-			
-			//print optimal cost
-			System.out.println("The cost of optimal alignment is: " + optimalCost);	
-			
 			//print optimal alignment 
 			alignment();
-		}
-
-		//find cost of optimal alignment 
-		public static int opt (int i, int j){
-			
-			if (i == m) {
-				optCost = 2 *(n - j);
-			} else if (j == n) {
-				optCost = 2 *(m - i);
-			} else {
-				if (x[i] == y[j]) {
-						penalty = 0;
-				} else {
-					penalty = 1;
-				}
-				
-				optCost = min(opt(i + 1, j + 1) + penalty, opt(i + 1, j) + 2, opt(i, j + 1) + 2);
-			}
-			return optCost;
 		}
 		
 		//method to calculate minimum of 3 integers
@@ -60,7 +35,7 @@ public class SequenceAlignDynamicProg {
 			int penalty;
 			
 			//create the (m+1) x (n+1) array
-	        int[][] opt = new int[m+1][n+1];
+	        int[][] opt = new int[m + 1][n + 1];
 	        
 	       //initialize the first row and column of the array
 	        for (int i = 0; i <= m; i++) {
@@ -93,4 +68,5 @@ public class SequenceAlignDynamicProg {
 	        	}
 	        	System.out.println();
 	        }
-      }
+	        
+	        System.out.println(opt[m-1][n-1]);
