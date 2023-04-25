@@ -7,9 +7,11 @@
 //MISMATCH = 1
 
 public class SequenceAlignDynamicProg {
+	
 		
-		static char[] x = {'A', 'A', 'C', 'A', 'G', 'T', 'T', 'A', 'C', 'C'};		//'A', 'A', 'C', 'A', 'G', 'T', 'T', 'A', 'C', 'C'
-		static char[] y = {'T', 'A', 'A', 'G', 'G', 'T', 'C', 'A'};			//'T', 'A', 'A', 'G', 'G', 'T', 'C', 'A'
+		
+		static char[] x = {'A', 'C', 'G', 'T', 'C'};		
+		static char[] y = {'T', 'A', 'A', 'C', 'T', 'G', 'C'};			
 		static int m = x.length;
 		static int n = y.length;
 		static int count = 0;
@@ -18,14 +20,13 @@ public class SequenceAlignDynamicProg {
 		
 		public static void main (String[] args) { 
 			//timing code
-			long begin = System.nanoTime(); 				//start timer
+			long begin = System.nanoTime(); //start timer
 			
 			alignment();
 			
 			long end = System.nanoTime();					//end timer
 			long time = end - begin;					//calculate total time
 			System.out.println("The algorithm took " + time + " ns");	//print time 
-			
 		}
 		
 		//find and print optimal alignment cost matrix
@@ -35,24 +36,25 @@ public class SequenceAlignDynamicProg {
 	       //initialize the first row and column of the array
 	        for (int i = 0; i <= m; i++) {
 	           align[i][0] = i * 2;
-	           count = count + 1;
+	           //count = count + 1;
 	        }
 	        for (int j = 0; j <= n; j++) {
 	           align[0][j] = j * 2;
+	           //count = =count + 1:
 	        }
 	        
-	        //fill in the rest of the array using dynamic programming
+	        //fill in the rest of the array using the dynamic programming algorithm
 	        for (int i = 1; i <= m; i++) {
 	            for (int j = 1; j <= n; j++) {
-	                if (x[i - 1] == y[j - 1]) {					//changed from x.length == y.length
+	                if (x[i - 1] == y[j - 1]) {			
 	                	penalty = 0;
-	                	count = count + 1;
+	                	//count = count + 1;
 	                }
 	                else {
 	                	penalty = 1;
-	                	count = count + 1;
+	                	//count = count + 1;
 	                }
-	                count = count + 3;
+	                //count = count + 3;
 	                align[i][j] = Math.min(align[i - 1][j - 1] + penalty, Math.min(align[i - 1][j] + 2, align[i][j - 1] + 2)); 
 	            }
 	        }
@@ -65,7 +67,6 @@ public class SequenceAlignDynamicProg {
 	        	System.out.println();
 	        }
 	        System.out.println("_________________________________________");
-	        System.out.println("The cost of alignment is: " + align[m][n]);		//changed from [m-1][n-1] 
-	}
+	        System.out.println("The cost of alignment is: " + align[m][n]);		 
+		}
 }
-
