@@ -24,9 +24,11 @@ public class SequenceAlignDynamicProg {
 			
 			alignment();
 			
-			long end = System.nanoTime();					//end timer
-			long time = end - begin;					//calculate total time
+			long end = System.nanoTime();	//end timer
+			long time = end - begin;		//calculate total time
 			System.out.println("The algorithm took " + time + " ns");	//print time 
+			
+			printOptAlignArr();
 		}
 		
 		//find and print optimal alignment cost matrix
@@ -46,7 +48,7 @@ public class SequenceAlignDynamicProg {
 	        //fill in the rest of the array using the dynamic programming algorithm
 	        for (int i = 1; i <= m; i++) {
 	            for (int j = 1; j <= n; j++) {
-	                if (x[i - 1] == y[j - 1]) {			
+	                if (x[i - 1] == y[j - 1]) {			//changed from x.length == y.length
 	                	penalty = 0;
 	                	//count = count + 1;
 	                }
@@ -58,7 +60,10 @@ public class SequenceAlignDynamicProg {
 	                align[i][j] = Math.min(align[i - 1][j - 1] + penalty, Math.min(align[i - 1][j] + 2, align[i][j - 1] + 2)); 
 	            }
 	        }
+	}
 	        
+	      
+	      public static void printOptAlignArr() {  
 	      //print optimal alignment array 
 	        for(int i = x.length; i >= 0; i--) {
 	        	for(int j = y.length; j >= 0; j--) {
@@ -67,6 +72,6 @@ public class SequenceAlignDynamicProg {
 	        	System.out.println();
 	        }
 	        System.out.println("_________________________________________");
-	        System.out.println("The cost of alignment is: " + align[m][n]);		 
-		}
+	        System.out.println("The cost of alignment is: " + align[m][n]);		//changed from [m-1][n-1] 
+	}
 }
