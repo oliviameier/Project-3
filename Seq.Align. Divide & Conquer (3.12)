@@ -6,8 +6,8 @@
 public class SequenceAlignmentDivideConquer {
 	
 	
-	static char[] x = {'A', 'A', 'C', 'A', 'G', 'T', 'T', 'A', 'C', 'C'};
-	static char[] y = {'T', 'A', 'A', 'G', 'G', 'T', 'C', 'A'};
+	static char[] x = {'A', 'C', 'G', 'T', 'C'};
+	static char[] y = {'T', 'A', 'A', 'C', 'T', 'G', 'C'};
 	static int m = x.length;
 	static int n = y.length;
 	static int count = 0;							
@@ -24,7 +24,7 @@ public class SequenceAlignmentDivideConquer {
 		long time = end - begin;		//calculate total time
 		System.out.println("The algorithm took " + time + " ns.");	//print time 
 		
-		System.out.println("The number of comparisons is: " + count);
+		//System.out.println("The number of comparisons is: " + count);
 		
 		System.out.println("The cost of optimal alignment is: " + optimalCost);	//print optimal cost 
 	}
@@ -36,19 +36,20 @@ public class SequenceAlignmentDivideConquer {
 		
 		if (i == m) {
 			optCost = 2 * (n - j);
-			count = count + 1;
+			//count = count + 1;
 		} else if (j == n) {
 			optCost = 2 * (m - i);
-			count = count + 2;
+			//count = count + 2;
 		} else {
 			if (x[i] == y[j]) {
 				penalty = 0;
+				//count = count + 1;
 			} else {
 				penalty = 1;
-				count = count + 1;
+				//count = count + 1;
 			}
 			
-			count = count + 3;
+			//count = count + 3;
 			optCost = Math.min(opt(i + 1, j + 1) + penalty, Math.min(opt(i + 1, j) + 2, opt(i, j + 1) + 2));
 		}
 		
